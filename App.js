@@ -14,16 +14,24 @@ export default class App extends React.Component {
     this.setState({ newTodo: e })
   };
   onPress = (task) => {
+    if (task === '') {
+      alert('Invalid task')
+      return
+    }
     this.setState({
-      toDo: [task, ...this.state.toDo],
+      toDo: [...this.state.toDo, task],
       newTodo: ''
     });
   };
   removeTask = (index) => {
     let { toDo } = this.state;
+    alert(`${toDo[index]} is done!`)
     toDo.splice(index, 1)
+    if (toDo.length === 0) {
+      alert('You completed your todo list!')
+    }
     this.setState({ toDo: [...toDo] })
-  }
+  };
 
   render() {
     return (
@@ -34,8 +42,7 @@ export default class App extends React.Component {
           onChangeText={(e) => this.handleChange(e)}
           placeholder="Type new task"
           value={this.state.newTodo} />
-        <Button title="click" onPress={() => this.onPress(this.state.newTodo)} />
-
+        <Button title="Add Task" onPress={() => this.onPress(this.state.newTodo)} />
       </View>
     );
   }
