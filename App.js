@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, TextInput, Text, View, Button } from 'react-native';
+import { StyleSheet, TextInput, Text, View, Button, TouchableOpacity } from 'react-native';
 
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
       toDo: ["task", "task", "task"],
-      newTodo: ''
+      newTodo: '',
+      fontSize: 12
     };
   };
 
@@ -36,14 +37,24 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.form} >
+          s<TextInput
+            style={styles.textInput}
+            onChangeText={(e) => this.handleChange(e)}
+            placeholder="Type new task"
+            value={this.state.newTodo} />
+
+          <TouchableOpacity
+            style={styles.addTask}
+            onPress={() => this.onPress(this.state.newTodo)} >
+            <Text style={styles.buttonText}  > yerr </Text>
+          </TouchableOpacity>
+        </View>
+
         {this.state.toDo.map((toDo, i) => <Text onPress={() => this.removeTask(i)} key={i}>{toDo}</Text>)}
-        <TextInput
-          style={{ height: 40, width: 100 }}
-          onChangeText={(e) => this.handleChange(e)}
-          placeholder="Type new task"
-          value={this.state.newTodo} />
-        <Button title="Add Task" onPress={() => this.onPress(this.state.newTodo)} />
-      </View>
+
+
+      </View >
     );
   }
 }
@@ -51,8 +62,30 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 80
   },
+  form: {
+    flexDirection: 'row',
+
+  },
+  textInput: {
+    flex: 0.7,
+    fontSize: 18
+  },
+  addTask: {
+    flex: 0.3,
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  }
+
+
+
 });
